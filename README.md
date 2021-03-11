@@ -9,6 +9,7 @@ Segundo o Ministério Público Federal (MPF), trata-se do maior desastre ambient
 # Requisitos
 
 - Python 3.8
+- [Download do *dataset*](https://drive.google.com/drive/folders/15-ye1cz5ISQKyMY_9BAV217FLl_Z9Lcp?usp=sharing)
 
 # Instalação
 
