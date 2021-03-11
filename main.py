@@ -18,7 +18,7 @@ from keras.preprocessing.image import ImageDataGenerator
 INP = 128
 NUM_CLASSES = 2
 BATCH_SIZE = 32
-DATA_PATH = '../oil_spill_data_test'
+DATA_PATH = '../brazil-oil-spill_data'
 
 """# Parâmetros"""
 
