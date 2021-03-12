@@ -78,6 +78,9 @@ class_weights = {
     1: 1251.0 / soma
 }
 experiments = []
+total = len(param_grid['conv_layers']) * len(param_grid['filters']) * len(param_grid['kernel_size']) * len(
+    param_grid['dense_units'])
+i = 0
 
 for conv_layers in param_grid['conv_layers']:
     for filters in param_grid['filters']:
@@ -99,6 +102,8 @@ for conv_layers in param_grid['conv_layers']:
                                          workers=4,
                                          class_weight=class_weights).history
                 })
+                i += 1
+                print(f'{i}/{total} experimentos realizados')
 
 with open('grid_search_result.json', 'w') as fp:
     json.dump(experiments, fp)
