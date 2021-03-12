@@ -1,19 +1,19 @@
 {
-    'conv_layers': [
+    "conv_layers": [
         1,
         2,
         3
     ],
-    'filters': [
+    "filters": [
         16,
         32,
         64
     ],
-    'kernel_size': [
+    "kernel_size": [
         3,
         5
     ],
-    'dense_units': [
+    "dense_units": [
         [
             25
         ],
