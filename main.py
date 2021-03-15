@@ -49,6 +49,16 @@ def create_model(conv_layers=1, filters=16, kernel_size=3, dense_units=(25,)):
     return model
 
 
+def fit(model):
+    return model.fit(training_set,
+                     steps_per_epoch=training_set.samples // BATCH_SIZE,
+                     epochs=10,
+                     validation_data=test_set,
+                     validation_steps=test_set.samples // 1,
+                     workers=4,
+                     class_weight=class_weights).history
+
+
 """# Dados"""
 
 train_datagen = ImageDataGenerator(rescale=1. / 255,
@@ -77,33 +87,30 @@ class_weights = {
     0: 476.0 / soma * 2,
     1: 1251.0 / soma
 }
-experiments = []
-total = len(param_grid['conv_layers']) * len(param_grid['filters']) * len(param_grid['kernel_size']) * len(
-    param_grid['dense_units'])
-i = 0
 
-for conv_layers in param_grid['conv_layers']:
-    for filters in param_grid['filters']:
-        for kernel_size in param_grid['kernel_size']:
-            for dense_units in param_grid['dense_units']:
-                model = create_model(conv_layers, filters, kernel_size, dense_units)
-                experiments.append({
-                    'params': {
-                        'conv_layers': conv_layers,
-                        'filters': filters,
-                        'kernel_size': kernel_size,
-                        'dense_units': dense_units,
-                    },
-                    'history': model.fit(training_set,
-                                         steps_per_epoch=training_set.samples // BATCH_SIZE,
-                                         epochs=10,
-                                         validation_data=test_set,
-                                         validation_steps=test_set.samples // 1,
-                                         workers=4,
-                                         class_weight=class_weights).history
-                })
-                i += 1
-                print(f'{i}/{total} experimentos realizados')
 
-with open('grid_search_result_valerio.json', 'w') as fp:
-    json.dump(experiments, fp)
+if __name__ == '__main__':
+    experiments = []
+    total = len(param_grid['conv_layers']) * len(param_grid['filters']) * len(param_grid['kernel_size']) * len(
+        param_grid['dense_units'])
+    i = 0
+
+    for conv_layers in param_grid['conv_layers']:
+        for filters in param_grid['filters']:
+            for kernel_size in param_grid['kernel_size']:
+                for dense_units in param_grid['dense_units']:
+                    model = create_model(conv_layers, filters, kernel_size, dense_units)
+                    experiments.append({
+                        'params': {
+                            'conv_layers': conv_layers,
+                            'filters': filters,
+                            'kernel_size': kernel_size,
+                            'dense_units': dense_units,
+                        },
+                        'history': fit(model).history
+                    })
+                    i += 1
+                    print(f'{i}/{total} experimentos realizados')
+
+    with open('grid_search_result_valerio.json', 'w') as fp:
+        json.dump(experiments, fp)
