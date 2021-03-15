@@ -105,5 +105,5 @@ for conv_layers in param_grid['conv_layers']:
                 i += 1
                 print(f'{i}/{total} experimentos realizados')
 
-with open('grid_search_result.json', 'w') as fp:
+with open('grid_search_result_valerio.json', 'w') as fp:
     json.dump(experiments, fp)
