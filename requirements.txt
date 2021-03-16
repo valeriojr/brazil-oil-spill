@@ -115,6 +115,7 @@ umap-learn==0.4.6
 Unidecode==1.1.1
 urllib3==1.25.9
 validate-docbr==1.8.2
+visualkeras==0.0.1
 wcwidth==0.2.4
 webencodings==0.5.1
 Werkzeug==1.0.1
